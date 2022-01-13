@@ -14,5 +14,8 @@
     "url": "git+https://github.com/vishisht19/fragments.git"
   },
   "author": "Vishisht Gupta",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "2.5.1"
+  }
 }
