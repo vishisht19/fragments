@@ -5,6 +5,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 
+const passport = require('passport');
+
 // version and author from our package.json file
 // const { version, author } = require('../package.json');
 
@@ -14,6 +16,7 @@ const pino = require('pino-http')({
   logger,
 });
 
+const authorization = require('./authorization');
 // Create an express app instance we can use to attach middleware and HTTP routes
 const app = express();
 
@@ -28,6 +31,13 @@ app.use(cors());
 
 // Use gzip/deflate compression middleware
 app.use(compression());
+
+// Set up our passport authorization middleware
+passport.use(authorization.strategy());
+app.use(passport.initialize());
+
+// Define our routes
+app.use('/', require('./routes'));
 
 // Define a simple health check route. If the server is running
 // we'll respond with a 200 OK.  If not, the server isn't healthy.
@@ -44,9 +54,6 @@ app.use(compression());
 //     version,
 //   });
 // });
-
-// Define our routes
-app.use('/', require('./routes'));
 
 // Add 404 middleware to handle any requests for resources that can't be found can't be found
 app.use((req, res) => {
