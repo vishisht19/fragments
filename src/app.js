@@ -7,16 +7,13 @@ const compression = require('compression');
 
 const passport = require('passport');
 
-// version and author from our package.json file
-// const { version, author } = require('../package.json');
-
 const logger = require('./logger');
 const pino = require('pino-http')({
   // Use our default logger instance, which is already configured
   logger,
 });
 
-const authorization = require('./authorization');
+const authorization = require('./authorization/basic-auth'); //for local /v1 tests
 // Create an express app instance we can use to attach middleware and HTTP routes
 const app = express();
 

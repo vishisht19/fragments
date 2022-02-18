@@ -9,8 +9,8 @@ const { version, author } = require('../../package.json');
 const router = express.Router();
 
 // Our authorization middleware
-const { authenticate } = require('../authorization');
-
+// const { authenticate } = require('../authorization');
+const { authenticate } = require('../authorization/basic-auth');
 const { createSuccessResponse } = require('../response');
 
 /**
