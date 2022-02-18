@@ -38,11 +38,15 @@ describe('Fragments modifications', () => {
   });
 
   test('listFragments() returns all secondaryKey values', async () => {
-    await writeFragmentData('i', 'a', '1');
-    await writeFragmentData('i', 'b', '2');
-    await writeFragmentData('i', 'c', '3');
+    const results = listFragments('vvxczc', true);
 
-    //  expect(Array.isArray(results)).toBe(true);
-    expect(await listFragments('i', false).toEqual('1', '2', '3'));
+    expect(await results).toEqual([undefined]);
+  });
+
+  test('deleteFragment() removes value put() into db', async () => {
+    await writeFragmentData('a', 'b', { value: 1 });
+    expect(await readFragmentData('a', 'b')).toEqual({ value: 1 });
+    await deleteFragment('a', 'b');
+    expect(await readFragmentData('a', 'b')).toBe(undefined);
   });
 });

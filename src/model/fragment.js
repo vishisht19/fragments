@@ -59,7 +59,7 @@ class Fragment {
     try {
       logger.debug({ ownerId, expand }, 'Fragment.byUser()');
       const fragments = await listFragments(ownerId, expand);
-      return expand ? fragments.map((fragment) => new Fragment(fragment)) : fragments;
+      return fragments;
     } catch (err) {
       return [];
     }
@@ -73,8 +73,14 @@ class Fragment {
    */
   static async byId(ownerId, id) {
     // TODO
-    const fragments = await readFragment(ownerId, id);
-    return fragments;
+    this.updated = new Date().toISOString();
+    const frag = await readFragment(ownerId, id);
+
+    if (frag === undefined) {
+      throw new Error('Does not exist');
+    } else {
+      return frag;
+    }
   }
 
   /**
@@ -85,10 +91,7 @@ class Fragment {
    */
   static delete(ownerId, id) {
     // TODO
-    new Promise((resolve, reject) => {
-      deleteFragment(ownerId, id);
-      resolve();
-    }).then(() => {});
+    return deleteFragment(ownerId, id);
   }
 
   /**
@@ -108,9 +111,8 @@ class Fragment {
    */
   getData() {
     // TODO
-    new Promise((resolve, reject) => {
-      return readFragmentData(this.ownerId, this.id);
-    }).then();
+
+    return readFragmentData(this.ownerId, this.id);
   }
 
   /**
@@ -120,10 +122,14 @@ class Fragment {
    */
   async setData(data) {
     // TODO
+    if (!Buffer.isBuffer(data)) {
+      throw new Error('data is not a Buffer');
+    }
+    this.updated = new Date().toISOString();
     var str = String(data);
     this.size = Buffer.byteLength(str, 'utf-8');
-    this.save();
-    return await writeFragmentData(this.ownerId, this.id, data);
+
+    return writeFragmentData(this.ownerId, this.id, data);
   }
 
   /**
