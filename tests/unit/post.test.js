@@ -8,12 +8,14 @@ var Buffer = require('buffer/').Buffer;
 
 describe('Post', () => {
   test('should create a new post', async () => {
-    const data = Buffer.from('This is fragment');
-    request(app)
+    let data = Buffer.from('This is fragment', 'utf-8');
+    await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/plain')
-      .send(data);
-    expect(201);
+      .write(data);
+    //.attach(data);
+
+    expect(200);
   });
 });
