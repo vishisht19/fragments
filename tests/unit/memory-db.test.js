@@ -35,11 +35,11 @@ describe('memory-db', () => {
   });
 
   test('query() returns all secondaryKey values', async () => {
-    await db.put('a', 'a', { value: 1 });
-    await db.put('a', 'b', { value: 2 });
-    await db.put('a', 'c', { value: 3 });
+    await db.put('x', 'a', { value: 1 });
+    await db.put('x', 'b', { value: 2 });
+    await db.put('x', 'c', { value: 3 });
 
-    const results = await db.query('a');
+    const results = await db.query('x');
     expect(Array.isArray(results)).toBe(true);
     expect(results).toEqual([{ value: 1 }, { value: 2 }, { value: 3 }]);
   });

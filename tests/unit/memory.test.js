@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-const MemoryDB = require('../../src/model/data/memory/memory-db');
-
 const {
   readFragment,
   writeFragment,
@@ -10,42 +8,41 @@ const {
   deleteFragment,
 } = require('../../src/model/data/memory/index.js');
 
-beforeEach(() => {
-  const data = new MemoryDB();
-  const metadata = new MemoryDB();
-});
-
-// Define (i.e., name) the set of tests we're about to do
 describe('Fragments modifications', () => {
   // Write a test for calling createErrorResponse()
-  test('readFragment()', () => {
-    const data = { value: 123 };
-    writeFragmentData('a', 'b', data);
+  test('readFragmentData()', async () => {
+    const data = 'Hello';
+    await writeFragmentData('aa', 'bb', data);
     // Expect the result to look like the following
-    const readResponse = readFragmentData('a', 'b');
-    expect(readResponse).toEqual(data);
+    expect(await readFragmentData('aa', 'bb')).toEqual(data);
   });
 
-  // Write a test for calling createSuccessResponse() with no argument
-  test('writeFragment()', () => {
-    const fragmentData = { ownerId: 'a', Id: 'b', fragment: {} };
-    const successResponse = writeFragment(fragmentData);
-    // No arg passed
-    //readFragment('a', 'b');
+  test('readFragment()', async () => {
+    const fragmentData = { ownerId: 'a', id: 'b' };
+    await writeFragment(fragmentData);
     // Expect the result to look like the following
-    expect(successResponse).toBe(undefined);
+    expect(await readFragment('a', 'b')).toEqual(fragmentData);
   });
 
-  // Write a test for calling createSuccessResponse() with an argument
-  test('createSuccessResponse(data)', () => {
-    // Data argument included
-    const data = { a: 1, b: 2 };
-    const successResponse = createSuccessResponse(data);
+  test('writeFragment()', async () => {
+    const fragmentData = { ownerId: 'a', id: 'b', fragment: {} };
+    const successResponse = await writeFragment(fragmentData);
     // Expect the result to look like the following
-    expect(successResponse).toEqual({
-      status: 'ok',
-      a: 1,
-      b: 2,
-    });
+    expect(successResponse).toEqual(undefined);
+  });
+
+  test('writeFragmentData()', async () => {
+    const successResponse = await writeFragmentData('x', 'y', 'This is the value');
+    // Expect the result to look like the following
+    expect(await readFragmentData('x', 'y')).toEqual('This is the value');
+  });
+
+  test('listFragments() returns all secondaryKey values', async () => {
+    await writeFragmentData('i', 'a', '1');
+    await writeFragmentData('i', 'b', '2');
+    await writeFragmentData('i', 'c', '3');
+
+    //  expect(Array.isArray(results)).toBe(true);
+    expect(await listFragments('i', false).toEqual('1', '2', '3'));
   });
 });
