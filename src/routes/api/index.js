@@ -34,7 +34,6 @@ const rawBody = () =>
       try {
         const fragment = new Fragment({ ownerId: req.user, type: req.get('Content-Type') });
         await fragment.save();
-
         await fragment.setData(Buffer.from(buf));
 
         res.set('Content-Type', fragment.type);
