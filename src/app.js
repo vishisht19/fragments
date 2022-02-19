@@ -13,7 +13,7 @@ const pino = require('pino-http')({
   logger,
 });
 
-const authorization = require('./authorization/basic-auth'); //for local /v1 tests
+const authorization = require('./authorization'); //for local /v1 tests change to ./authorization/basic-auth
 // Create an express app instance we can use to attach middleware and HTTP routes
 const app = express();
 
