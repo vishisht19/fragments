@@ -24,7 +24,7 @@ class Fragment {
       this.id = nanoid();
     }
     this.ownerId = ownerId;
-    this.created = new Date().toISOString();
+    this.created = created || new Date().toISOString();
     this.updated = new Date().toISOString();
 
     if (!ownerId) {
@@ -74,7 +74,7 @@ class Fragment {
   static async byId(ownerId, id) {
     // TODO
     this.updated = new Date().toISOString();
-    const frag = await readFragment(ownerId, id);
+    const frag = await readFragment(ownerId, id); //change
 
     if (frag === undefined) {
       throw new Error('Does not exist');
@@ -101,7 +101,6 @@ class Fragment {
   save() {
     // TODO
     this.updated = new Date().toISOString();
-
     return writeFragment(this);
   }
 
@@ -110,8 +109,6 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   getData() {
-    // TODO
-
     return readFragmentData(this.ownerId, this.id);
   }
 

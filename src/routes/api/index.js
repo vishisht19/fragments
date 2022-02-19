@@ -1,15 +1,33 @@
 // src/routes/api/index.js
-
+const { readFragmentData } = require('../../model/data/memory/index');
 const express = require('express');
-
-const router = express.Router();
-
-router.get('/fragments', require('./get'));
-
 const { createSuccessResponse, createErrorResponse } = require('../../response');
 const { Fragment } = require('../../model/fragment');
 const contentType = require('content-type');
 var Buffer = require('buffer/').Buffer;
+const router = express.Router();
+// eslint-disable-next-line no-undef
+const url = process.env.API_URL;
+
+//Get route
+router.get('/fragments', (req, res) => {
+  // TODO: this is just a placeholder to get something working...
+  let data = { fragments: [] };
+  res.status(200).json(createSuccessResponse(data));
+});
+
+//Get/:id route
+router.get('/fragments/:id', async function (req, res) {
+  try {
+    let data = await readFragmentData(req.user, req.params.id);
+    data = data.toString('utf8');
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(415).json(createErrorResponse(415, err));
+  }
+});
+
+//POST route
 // Support sending various Content-Types on the body up to 5M in size
 const rawBody = () =>
   express.raw({
@@ -37,6 +55,9 @@ const rawBody = () =>
         await fragment.setData(Buffer.from(buf));
 
         res.set('Content-Type', fragment.type);
+        // eslint-disable-next-line no-undef
+        res.set('Location', ` ${url}/v1/fragments/${fragment.id}`);
+
         res.status(201).json(
           createSuccessResponse({
             fragment: fragment,
