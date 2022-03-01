@@ -1,37 +1,43 @@
-# This is a dockerfile added in order to dockerize this microservice
-FROM node:16.13.0
+# Stage 0: Install node +  dependencies
+FROM node:16.13.0 AS dependencies
 
 LABEL maintainer="Vishisht Gupta <vagupta1@myseneca.ca>"
 LABEL description="Fragments node.js microservice"
 
 # We default to use port 8080 in our service
 ENV PORT=8080
-
 # Reduce npm spam when installing within Docker
 # https://docs.npmjs.com/cli/v8/using-npm/config#loglevel
 ENV NPM_CONFIG_LOGLEVEL=warn
-
 # Disable colour when run inside Docker
 # https://docs.npmjs.com/cli/v8/using-npm/config#color
 ENV NPM_CONFIG_COLOR=false
-
-# Use /app as our working directory
+ENV NODE_ENV=production
 WORKDIR /app
-
-# Copy the package.json and package-lock.json files into /app
-COPY package*.json /app/
-
+# copy dep files and install the production deps
+COPY package*.json  ./
 # Install node dependencies defined in package-lock.json
-RUN npm install
+RUN npm ci --only=production
 
+#######################################################################
+
+# Stage 1: use dependencies to build the site
+FROM node:16.13.0 AS builder
+WORKDIR /app
+# Copy cached dependencies from previous stage so we don't have to download
+COPY --from=dependencies /app /app
 # Copy src to /app/src/
 COPY ./src ./src
-
 # Copy our HTPASSWD file
 COPY ./tests/.htpasswd ./tests/.htpasswd
-
-# Start the container by running our server
-CMD npm start
-
+#Changing the ownership to node user
+COPY --chown=node:node . /app
 # We run our service on port 8080
 EXPOSE 8080
+#Change root to node user
+USER node
+# Start the container by running our server
+CMD npm start
+#Built-in health check. Use docker ps to see if the app is healthy.
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD curl --fail localhost:8080 || exit 1
