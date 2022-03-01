@@ -1,5 +1,5 @@
 # Stage 0: Install node +  dependencies
-FROM node:16.13.0 AS dependencies
+FROM node:16.13.0@sha256:580a0850049c59a48f06090edd48c9f966c5e6572bbbabc369ba3ecbc4855dba AS dependencies
 
 LABEL maintainer="Vishisht Gupta <vagupta1@myseneca.ca>"
 LABEL description="Fragments node.js microservice"
@@ -22,7 +22,7 @@ RUN npm ci --only=production
 #######################################################################
 
 # Stage 1: use dependencies to run the app
-FROM node:16.13.0 AS builder
+FROM node:16.13.0@sha256:580a0850049c59a48f06090edd48c9f966c5e6572bbbabc369ba3ecbc4855dba AS builder
 WORKDIR /app
 # Copy cached dependencies from previous stage so we don't have to download
 COPY --from=dependencies /app /app
