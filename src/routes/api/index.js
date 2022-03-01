@@ -27,6 +27,20 @@ router.get('/fragments/:id', async function (req, res) {
   }
 });
 
+//Get/:id/info route
+router.get('/fragments/:id/info', async function (req, res) {
+  try {
+    let data = await Fragment.byId(req.user, req.params.id);
+    res.status(200).json(
+      createSuccessResponse({
+        fragment: data,
+      })
+    );
+  } catch (err) {
+    res.status(415).json(createErrorResponse(415, err));
+  }
+});
+
 //POST route
 // Support sending various Content-Types on the body up to 5M in size
 const rawBody = () =>
