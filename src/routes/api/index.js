@@ -6,8 +6,6 @@ const { Fragment } = require('../../model/fragment');
 const contentType = require('content-type');
 var Buffer = require('buffer/').Buffer;
 const router = express.Router();
-// eslint-disable-next-line no-undef
-const url = process.env.API_URL;
 
 //Get route
 router.get('/fragments', (req, res) => {
@@ -70,7 +68,7 @@ const rawBody = () =>
 
         res.set('Content-Type', fragment.type);
         // eslint-disable-next-line no-undef
-        res.set('Location', ` ${url}/v1/fragments/${fragment.id}`);
+        res.set('Location', ` ${req.headers.host}/v1/fragments/${fragment.id}`);
 
         res.status(201).json(
           createSuccessResponse({

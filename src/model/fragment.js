@@ -1,5 +1,3 @@
-/* eslint-disable getter-return */
-/* eslint-disable no-unused-vars */
 // Use https://www.npmjs.com/package/nanoid to create unique IDs
 const { nanoid } = require('nanoid');
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
@@ -25,7 +23,7 @@ class Fragment {
     }
     this.ownerId = ownerId;
     this.created = created || new Date().toISOString();
-    this.updated = new Date().toISOString();
+    this.updated = updated || new Date().toISOString();
 
     if (!ownerId) {
       throw new Error(`OwnerID string is required`);
@@ -58,8 +56,7 @@ class Fragment {
   static async byUser(ownerId, expand = false) {
     try {
       logger.debug({ ownerId, expand }, 'Fragment.byUser()');
-      const fragments = await listFragments(ownerId, expand);
-      return fragments;
+      return await listFragments(ownerId, expand);
     } catch (err) {
       return [];
     }
