@@ -120,9 +120,9 @@ class Fragment {
       throw new Error('data is not a Buffer');
     }
     this.updated = new Date().toISOString();
-    var str = String(data);
+    var str = data;
     this.size = Buffer.byteLength(str, 'utf-8');
-
+    this.save();
     return writeFragmentData(this.ownerId, this.id, data);
   }
 
