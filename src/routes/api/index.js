@@ -6,6 +6,7 @@ const { Fragment } = require('../../model/fragment');
 const contentType = require('content-type');
 var Buffer = require('buffer/').Buffer;
 const router = express.Router();
+const path = require('path');
 
 //Get route
 router.get('/fragments', (req, res) => {
@@ -17,11 +18,25 @@ router.get('/fragments', (req, res) => {
 //Get/:id route
 router.get('/fragments/:id', async function (req, res) {
   try {
-    let data = await readFragmentData(req.user, req.params.id);
-    data = data.toString('utf8');
-    res.status(200).json(data);
+    let ext = path.extname(req.params.id);
+
+    if (ext == '') {
+      let data = await readFragmentData(req.user, req.params.id);
+      let data1 = data.toString('utf8');
+      res.set('Content-Type', 'text/plain');
+      res.status(200).json(data1);
+    } else if (ext == '.txt') {
+      const file = req.params.id;
+      const filename = file.split('.').slice(0, -1).join('.');
+      let data = await readFragmentData(req.user, filename);
+      let data1 = data.toString('utf8');
+      res.set('Content-Type', 'text/plain');
+      res.status(200).json(data1);
+    } else {
+      throw new Error('Extension not recognized');
+    }
   } catch (err) {
-    res.status(415).json(createErrorResponse(415, err));
+    res.status(404).json(createErrorResponse(404, err));
   }
 });
 
@@ -65,11 +80,7 @@ const rawBody = () =>
         const fragment = new Fragment({ ownerId: req.user, type: req.get('Content-Type') });
         await fragment.save();
         await fragment.setData(Buffer.from(buf));
-
-        res.set('Content-Type', fragment.type);
-        // eslint-disable-next-line no-undef
         res.set('Location', ` ${req.headers.host}/v1/fragments/${fragment.id}`);
-
         res.status(201).json(
           createSuccessResponse({
             fragment: fragment,
