@@ -53,6 +53,6 @@ describe('GET /v1/fragments/:id', () => {
     const getId = await request(app)
       .get(`/v1/fragments/shouldnotwork`)
       .auth('user1@email.com', 'password1');
-    expect(getId.statusCode).toBe(415);
+    expect(getId.statusCode).toBe(404);
   });
 });
