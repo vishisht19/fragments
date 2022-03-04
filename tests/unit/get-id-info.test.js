@@ -59,6 +59,6 @@ describe('GET /v1/fragments/:id/info', () => {
     const getId = await request(app)
       .get(`/v1/fragments/dsda343fdf/info`)
       .auth('user1@email.com', 'password1');
-    expect(getId.statusCode).toBe(415);
+    expect(getId.statusCode).toBe(404);
   });
 });
