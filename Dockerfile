@@ -38,7 +38,7 @@ EXPOSE 8080
 #Change root to node user
 USER node
 # Start the container by running our server
-CMD npm start
+CMD ["npm", "start"]
 #Built-in health check. Use docker ps to see if the app is healthy.
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
   CMD curl --fail localhost:8080 || exit 1

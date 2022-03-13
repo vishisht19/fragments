@@ -55,4 +55,30 @@ describe('GET /v1/fragments/:id', () => {
       .auth('user1@email.com', 'password1');
     expect(getId.statusCode).toBe(404);
   });
+
+  test('authenticated users with .txt extension should yield result', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/plain')
+      .send('This should match');
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.txt`)
+      .auth('user1@email.com', 'password1');
+    expect(JSON.parse(getId.text)).toEqual('This should match');
+  });
+
+  test('Non-recognizable extension should yield 415 status code', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/plain')
+      .send('This should match');
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.json`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(415);
+  });
 });

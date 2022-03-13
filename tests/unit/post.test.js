@@ -30,4 +30,13 @@ describe('Post', () => {
         assert(res.body.hasOwnProperty('Location'));
       });
   });
+
+  test('Invalid content type returns 415', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/html')
+      .send('data');
+    expect(res.statusCode).toBe(415);
+  });
 });
