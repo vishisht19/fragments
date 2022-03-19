@@ -31,11 +31,37 @@ describe('Post', () => {
       });
   });
 
-  test('Invalid content type returns 415', async () => {
+  test('text/* content type returns 201 status', async () => {
     let res = await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/html')
+      .send('data');
+    expect(res.statusCode).toBe(201);
+  });
+
+  test('application/json content type returns 201 status', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'application/json')
+      .send('data');
+    expect(res.statusCode).toBe(201);
+  });
+
+  test('Invalid content type', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'tex')
+      .send('data');
+    expect(res.statusCode).toBe(500);
+  });
+
+  test('Missing content type ', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
       .send('data');
     expect(res.statusCode).toBe(415);
   });

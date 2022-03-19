@@ -43,19 +43,6 @@ describe('GET /v1/fragments/:id', () => {
     expect(JSON.parse(getId.text)).toEqual('This should match');
   });
 
-  test('authenticated users cannot get a saved fragments data without correct ID', async () => {
-    await request(app)
-      .post('/v1/fragments')
-      .auth('user1@email.com', 'password1')
-      .set('Content-Type', 'text/plain')
-      .send('This should match');
-
-    const getId = await request(app)
-      .get(`/v1/fragments/shouldnotwork`)
-      .auth('user1@email.com', 'password1');
-    expect(getId.statusCode).toBe(404);
-  });
-
   test('authenticated users with .txt extension should yield result', async () => {
     let res = await request(app)
       .post('/v1/fragments')
@@ -67,6 +54,43 @@ describe('GET /v1/fragments/:id', () => {
       .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.txt`)
       .auth('user1@email.com', 'password1');
     expect(JSON.parse(getId.text)).toEqual('This should match');
+  });
+
+  test('authenticated users with type text/html should yield the results converted into that type', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/html')
+      .send('This should match');
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}`)
+      .auth('user1@email.com', 'password1');
+    expect(JSON.parse(getId.text)).toEqual('<h1>This should match</h1>');
+  });
+
+  test('authenticated users with .html extension should yield result converted into text/html type', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/markdown')
+      .send('This should match');
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.html`)
+      .auth('user1@email.com', 'password1');
+    expect(JSON.parse(getId.text)).toEqual('<h1>This should match</h1>');
+  });
+
+  test('invalid id should throw 404 err', async () => {
+    await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/markdown')
+      .send('This should match');
+
+    const getId = await request(app).get(`/v1/fragments/xyz`).auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(404);
   });
 
   test('Non-recognizable extension should yield 415 status code', async () => {

@@ -21,4 +21,23 @@ describe('GET /v1/fragments', () => {
   });
 
   // TODO: we'll need to add tests to check the contents of the fragments array later
+  test('authenticated users get a fragments array', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/plain')
+      .send('This should match');
+
+    const req = await request(app)
+      .get(`/v1/fragments?expand=1`)
+      .auth('user1@email.com', 'password1');
+    expect(req.body.fragments).toEqual([res.body.fragment]);
+  });
+
+  test('unauthenticated users get a 401 error', async () => {
+    const req = await request(app)
+      .get(`/v1/fragments?expand=1`)
+      .auth('user1@email.com', 'password2');
+    expect(req.statusCode).toBe(401);
+  });
 });

@@ -39,7 +39,6 @@ describe('Fragments modifications', () => {
 
   test('listFragments() returns all secondaryKey values', async () => {
     const results = listFragments('vvxczc', true);
-
     expect(await results).toEqual([undefined]);
   });
 

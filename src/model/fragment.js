@@ -56,7 +56,12 @@ class Fragment {
   static async byUser(ownerId, expand = false) {
     try {
       logger.debug({ ownerId, expand }, 'Fragment.byUser()');
-      return await listFragments(ownerId, expand);
+      let x = await listFragments(ownerId, expand);
+      // if (x == [undefined] || x === [undefined] || x == [{}] || x === {}) {
+      //   return [];
+      // } else {
+      return x;
+      // }
     } catch (err) {
       return [];
     }
@@ -143,12 +148,12 @@ class Fragment {
 
   get isText() {
     // TODO`
+    let ret = false;
     const { type } = contentType.parse(this.type);
     if (type.match(`text/*`)) {
-      return true;
-    } else {
-      return false;
+      ret = true;
     }
+    return ret;
   }
 
   /**
@@ -168,11 +173,13 @@ class Fragment {
   static isSupportedType(value) {
     // TODO
     const { type } = contentType.parse(value);
-    if (type == 'text/plain') {
+    // var re = new RegExp('/text*/');
+    if (type.match(`text/*`) || type.match('application/json')) {
       return true;
     } else {
       return false;
     }
+    // return value.isText();
   }
 }
 
