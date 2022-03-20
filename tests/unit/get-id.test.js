@@ -66,7 +66,7 @@ describe('GET /v1/fragments/:id', () => {
     const getId = await request(app)
       .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}`)
       .auth('user1@email.com', 'password1');
-    expect(JSON.parse(getId.text)).toEqual('<h1>This should match</h1>');
+    expect(getId.text).toEqual(`<h1>This should match</h1>`);
   });
 
   test('authenticated users with .html extension should yield result converted into text/html type', async () => {
@@ -79,7 +79,33 @@ describe('GET /v1/fragments/:id', () => {
     const getId = await request(app)
       .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.html`)
       .auth('user1@email.com', 'password1');
-    expect(JSON.parse(getId.text)).toEqual('<h1>This should match</h1>');
+    expect(getId.text).toEqual(`<h1>This should match</h1>`);
+  });
+
+  test('authenticated users with type text/markdown should yield the results converted into that type', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/markdown')
+      .send('This should match');
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.text).toEqual(`# This should match`);
+  });
+
+  test('authenticated users with .html extension should yield result converted into text/html type', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/html')
+      .send('This should match');
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.md`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.text).toEqual(`# This should match`);
   });
 
   test('invalid id should throw 404 err', async () => {
