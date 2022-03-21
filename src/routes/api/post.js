@@ -1,7 +1,6 @@
 const { createSuccessResponse, createErrorResponse } = require('../../response');
 const { Fragment } = require('../../model/fragment');
 var Buffer = require('buffer/').Buffer;
-
 module.exports = async (req, res) => {
   try {
     const fragment = new Fragment({ ownerId: req.user, type: req.get('Content-Type') });
