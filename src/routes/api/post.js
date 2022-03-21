@@ -8,7 +8,6 @@ module.exports = async (req, res) => {
     await fragment.save();
     await fragment.setData(Buffer.from(req.body));
     res.set('Location', ` ${req.headers.host}/v1/fragments/${fragment.id}`);
-    //  res.set('Content-Type', req.get('Content-Type'));
     res.status(201).json(
       createSuccessResponse({
         fragment: fragment,
