@@ -1,0 +1,272 @@
+[33mcommit 76a798c6b32741bd0f4160956b7d538bd47baec3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;33mtag: v0.7.1[m[33m)[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sat Mar 19 20:07:29 2022 -0400
+
+    Release v0.7.1
+
+[33mcommit 3f8a62d33dd892e1ac3994124f7348fff92af96b[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sat Mar 19 19:25:30 2022 -0400
+
+    Assignment 2 changes
+
+[33mcommit 025a871193a9ac2c201cc2ed1c98a0c00c20ee49[m[33m ([m[1;33mtag: v0.7.0[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Mar 13 06:27:24 2022 -0400
+
+    Release v0.7.0
+
+[33mcommit 6b7e5dfaf8f85c22042e62de0e30eaa3479df2e0[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Mar 13 06:21:31 2022 -0400
+
+    CD pipeline added
+
+[33mcommit a3db9e74c206feac227af4c6d260b4bf08ff595a[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Mar 13 05:37:44 2022 -0400
+
+    Automation of docker deployment
+
+[33mcommit 15b0a394d925c28222d4f6d743d7028fa4971c65[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Mar 13 05:10:44 2022 -0400
+
+    Automation of docker deployment on commit
+
+[33mcommit 2dd8ce708bfd229eb9ac8758b7463ef7315eb96b[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Mar 13 05:09:20 2022 -0400
+
+    Automation of docker deployment on commit
+
+[33mcommit 5dda2c461da9032ecfb671a7416527b91c677869[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Mar 13 04:10:34 2022 -0400
+
+    New CI built added
+
+[33mcommit f520a00bad67040c3e1d0baef90ae809e5659dac[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Thu Mar 3 19:58:20 2022 -0500
+
+    Optimized code according to feedback
+
+[33mcommit 84643e7bad77f5a51355537acf74e0a5b1cd8fb6[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Wed Mar 2 22:37:58 2022 -0500
+
+    Optimizing Get/id route
+
+[33mcommit 492970ffe204cd3cea0c7c78603f121b117cc8ff[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Wed Mar 2 22:37:25 2022 -0500
+
+    Optimizing Get/id route
+
+[33mcommit 462a189529c3ad18301696d28149f0b15769392a[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Wed Mar 2 18:25:56 2022 -0500
+
+    Optimizing setData()
+
+[33mcommit 197af6838dc6e66474bfa8f54da86f1abd7d782f[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Wed Mar 2 18:18:47 2022 -0500
+
+    Optimizing code
+
+[33mcommit cdc58c792c48bb7af23e65d74721682a7300f838[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Mon Feb 28 22:29:01 2022 -0500
+
+    Shorter node module added
+
+[33mcommit 4bfec6c832af0b56aad2ebde504c6e6ded10b7ef[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Mon Feb 28 22:03:38 2022 -0500
+
+    sha256 added for node version
+
+[33mcommit 517642370688fb846c196a7791399ec4ec0dbcb7[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Mon Feb 28 21:55:06 2022 -0500
+
+    Get fragment metadata route added with tests
+
+[33mcommit 1df18d102ed035ae67e2afd01a9c84ad67087748[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Mon Feb 28 21:02:12 2022 -0500
+
+    Dockerfile changed according to best practises - lab-6-step-20
+
+[33mcommit eb78730e05cfc57f0ba7fa4213cb9a641fcdcfd0[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Mon Feb 28 20:58:17 2022 -0500
+
+    Dockerfile changed according to best practises
+
+[33mcommit 62b722286a62e71f9980089b852f47a972dad122[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Tue Feb 22 02:36:25 2022 -0500
+
+    Dockerizing the microservice
+
+[33mcommit 7b74e7cd0ab25ed3ef480ae6a739fdd15ba987bd[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Fri Feb 18 23:08:17 2022 -0500
+
+    Final Changes
+
+[33mcommit 7070b8e68ee332d2f80f7dbd80b12f6336fce61d[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Fri Feb 18 21:50:50 2022 -0500
+
+    Changing auth
+
+[33mcommit b54e34e8378aaf43f08eca73c72b6e32b6d9eb2a[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Fri Feb 18 19:05:57 2022 -0500
+
+    GET/:id route added with tests
+
+[33mcommit a9a71de65efbb27677351363fa388bb7a325a63c[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Fri Feb 18 19:02:55 2022 -0500
+
+    GET/:id route added with tests
+
+[33mcommit bcb9cefc94ce91bf243ba1857f9ca9c6c8e34989[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Fri Feb 18 16:24:38 2022 -0500
+
+    Passing all tests
+
+[33mcommit d51fd089b8170fbdd9be7d1b8250b74f92336b7c[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Fri Feb 18 15:26:21 2022 -0500
+
+    Passing all tests
+
+[33mcommit 8a880566eaadd2a9a5ab02df0309d1ddc06aa601[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Fri Feb 18 15:23:12 2022 -0500
+
+    Passing all tests
+
+[33mcommit 70dc19b0af1dd76678aa0626138e512aa713a564[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Fri Feb 18 06:02:35 2022 -0500
+
+    Passing all tests
+
+[33mcommit 29576da86a2b607a6647f761c9d9c4f83bbf010d[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Fri Feb 18 02:48:01 2022 -0500
+
+    Passing tests
+
+[33mcommit 2fba0cc55ea4d212c026fe7a71481142b3d650ec[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Thu Feb 17 23:38:37 2022 -0500
+
+    /v1/fragments POST is working now
+
+[33mcommit eba8a64dd33f5e9895c8fe67ddc52951daf8cb72[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Feb 13 16:58:30 2022 -0500
+
+    Added in-memory DB and test
+
+[33mcommit 5eaa1686e9ed44052f2a9ba23278cc0d65d1ca13[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 30 19:51:48 2022 -0500
+
+    Rewrote all of your HTTP responses to use the createSuccessResponse() and createErrorResponse() functions
+
+[33mcommit a875cd803b45a1947c3dde34bd2926c1c3a2b326[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 30 17:21:46 2022 -0500
+
+    Fixing get.test.js
+
+[33mcommit 681bda12cad067192b52b47b7a7c838af3911f20[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 30 17:18:32 2022 -0500
+
+    Breaking test on purpose
+
+[33mcommit 68617d38ef2b888db9301b620e00f7356691ed1a[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 30 16:52:44 2022 -0500
+
+    Updated to include tests and extended CI
+
+[33mcommit 21548ec8f50dcfd109c27f72e20f8ffd92e5baaf[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 30 16:51:17 2022 -0500
+
+    Updated to include tests and extended CI
+
+[33mcommit 4fd26e19b9e4593638fbd0bc65ecc645d63c67dc[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 30 05:05:52 2022 -0500
+
+    Fixing CI build
+
+[33mcommit 70b59c4114d300a4765c8387cde3b57f4d28bee1[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 30 05:02:31 2022 -0500
+
+    Breaking CI build
+
+[33mcommit 85dd4caa9a8f8036c2f9f5a57ac8775a6da0ea21[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 30 04:57:40 2022 -0500
+
+    Add CI workflow for running eslint
+
+[33mcommit 8e8944558261627ec284665a1ac9da5d4b33ab3c[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 23 18:48:34 2022 -0500
+
+    final changes
+
+[33mcommit e144ce38a35aef69bd7a4336ed661442b3004241[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 23 18:18:43 2022 -0500
+
+    changes
+
+[33mcommit f389ff3ab0b0bf28a740c66c2a1e3681c923f645[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 23 17:43:24 2022 -0500
+
+    New formation
+
+[33mcommit f9af7fa4ac64671b421013bd13a9d5d81d69501e[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 23 17:28:06 2022 -0500
+
+    Switch to src/index.js as main entry point
+
+[33mcommit e6efd9d2dd89f71baa9f05897b3d88ce09cf6818[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Sun Jan 23 17:06:58 2022 -0500
+
+    Add dotenv
+
+[33mcommit 9367f6930e10ef972743a18db5042de5f02ce809[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Tue Jan 18 05:30:00 2022 -0500
+
+    Update README with details on running the server
+
+[33mcommit a2e7c0da4b4a7e106c765d3ea1271d83c172988f[m
+Author: Vishisht Gupta <vagupta1@myseneca.ca>
+Date:   Tue Jan 18 05:09:33 2022 -0500
+
+    Add startup scripts, nodemon, and VSCode debug launch config
+
+[33mcommit 75a749396f607ead253c2c4823ea0e914d407b2f[m
+Author: Vishisht Gupta <vagupta1@myse

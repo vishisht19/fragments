@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
     const fragment = new Fragment({ ownerId: req.user, type: req.get('Content-Type') });
     await fragment.save();
     await fragment.setData(Buffer.from(req.body));
-    res.set('Location', ` ${req.headers.host}/v1/fragments/${fragment.id}`);
+    res.set('Location', ` http://${req.headers.host}/v1/fragments/${fragment.id}`);
     res.status(201).json(
       createSuccessResponse({
         fragment: fragment,

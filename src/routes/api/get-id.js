@@ -20,18 +20,18 @@ module.exports = async (req, res) => {
       } else if (type.match(`text/markdown`)) {
         res.status(200).send(`# ${data}`);
       } else {
-        res.status(200).json(data.toString('utf8'));
+        res.status(200).send(data.toString());
       }
     } else if (ext == '.txt') {
       res.setHeader('Content-Type', 'text/plain');
       let data = await readFragmentData(req.user, id);
-      res.status(200).json(data.toString('utf8'));
+      res.status(200).send(data.toString('utf8'));
     } else if (ext == '.html') {
       res.setHeader('Content-Type', 'text/html');
       let data = await readFragmentData(req.user, id);
       res.status(200).send(`<h1>${data}</h1>`);
     } else if (ext == '.md') {
-      res.setHeader('Content-Type', 'text/html');
+      res.setHeader('Content-Type', 'text/markdown');
       let data = await readFragmentData(req.user, id);
       res.status(200).send(`# ${data}`);
     } else {
