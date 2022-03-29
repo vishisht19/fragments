@@ -1,7 +1,7 @@
 {
   "name": "fragments",
   "private": true,
-  "version": "0.7.4",
+  "version": "0.7.3",
   "description": "Fragments back-end API for Winter 2022",
   "engines": {
     "node": ">=16"
@@ -10,7 +10,7 @@
     "test:watch": "jest -c jest.config.js --runInBand --watch --",
     "test": "jest -c jest.config.js --runInBand --",
     "coverage": "jest -c jest.config.js --runInBand --coverage",
-    "lint": "eslint --config .eslintrc.js  **/*.js ",
+    "lint": "eslint --config .eslintrc.js src/** tests/**/*.js",
     "start": "node src/index.js",
     "dev": "cross-env LOG_LEVEL=debug nodemon ./src/index.js --watch src",
     "debug": "cross-env LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src"
