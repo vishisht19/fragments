@@ -10,6 +10,5 @@ tests/
 .gitignore
 .prettier*
 jest*
-aws/
 awscliv2.zip
 s

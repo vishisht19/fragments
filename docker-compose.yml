@@ -1,7 +1,7 @@
 # docker-compose.yml
 services:
   fragments:
-    image: ${DOCKER_REPO}:${DOCKER_TAG}
+    image: vishisht19/fragments:latest
     init: true
     ports:
       - '80:8080'
@@ -17,4 +17,4 @@ services:
       # We'll typically want to use Cognito, but we can pass this instead for testing
       - HTPASSWD
       # The S3 Bucket to use, default to `fragments` if missing
-      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME:-vagupta1-fragments}
+      - AWS_S3_BUCKET_NAME=vagupta1-fragments
