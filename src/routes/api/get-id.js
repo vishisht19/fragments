@@ -1,5 +1,5 @@
 // src/routes/api/get-id.js
-const { readFragmentData, readFragment } = require('../../model/data/memory/index');
+const { readFragmentData, readFragment } = require('../../model/data/index');
 const { createErrorResponse } = require('../../response');
 const path = require('path');
 const contentType = require('content-type');
@@ -40,11 +40,6 @@ module.exports = async (req, res) => {
       res.status(415).json(createErrorResponse(415, 'Extension cannot be recognized'));
     }
   } catch (err) {
-    let data = await readFragmentData(req.user, req.params.id);
-    let status = err.status || 415;
-    if (!data) {
-      status = 404;
-    }
-    res.status(status).json(createErrorResponse(status, 'ID not found'));
+    res.status(404).json(createErrorResponse(404, 'ID not found'));
   }
 };
