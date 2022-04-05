@@ -16,9 +16,11 @@ module.exports = async (req, res) => {
     if (ext == '') {
       let data = await readFragmentData(req.user, id);
       if (type.match(`text/html`)) {
-        res.status(200).send(`<h1>${data}</h1>`);
+        res.status(200).send(`${data}`);
       } else if (type.match(`text/markdown`)) {
-        res.status(200).send(`# ${data}`);
+        res.status(200).send(`${data}`);
+      } else if (type.match(`application/json`)) {
+        res.status(200).send(`${data}`);
       } else {
         res.status(200).send(data.toString());
       }

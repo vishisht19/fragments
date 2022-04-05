@@ -61,7 +61,7 @@ describe('GET /v1/fragments/:id', () => {
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/html')
-      .send('This should match');
+      .send(`<h1>This should match</h1>`);
 
     const getId = await request(app)
       .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}`)
@@ -87,7 +87,7 @@ describe('GET /v1/fragments/:id', () => {
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/markdown')
-      .send('This should match');
+      .send(`# This should match`);
 
     const getId = await request(app)
       .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}`)
