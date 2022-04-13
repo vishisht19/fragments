@@ -39,7 +39,7 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 # We're sending a md fragment
 Content-Type: text/markdown
 # Body of the request goes here
-"DynamoDB is **great**"
+"DynamoDB is **great**."
 
 HTTP/1.1 201
 [Captures]
