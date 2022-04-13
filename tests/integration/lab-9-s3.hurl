@@ -31,6 +31,7 @@ body == "Hello S3!"
 # 3. Try to DELETE the fragment we just posted by its URL
 DELETE {{url}}
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
+
 HTTP/1.1 200
 
 GET {{url}}
