@@ -12,13 +12,17 @@ const logger = require('../../../logger');
  * @returns Object | undefined
  */
 const getCredentials = () => {
+  // eslint-disable-next-line no-undef
   if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
     // See https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/interfaces/dynamodbclientconfig.html#credentials
     const credentials = {
+      // eslint-disable-next-line no-undef
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      // eslint-disable-next-line no-undef
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       // Optionally include the AWS Session Token, too (e.g., if you're connecting to AWS from your laptop).
       // Not all situations require this, so we won't check for it above, just use it if it is present.
+      // eslint-disable-next-line no-undef
       sessionToken: process.env.AWS_SESSION_TOKEN,
     };
     logger.debug('Using extra DynamoDB Credentials');
@@ -31,17 +35,21 @@ const getCredentials = () => {
  * @returns string | undefined
  */
 const getDynamoDBEndpoint = () => {
+  // eslint-disable-next-line no-undef
   if (process.env.AWS_DYNAMODB_ENDPOINT_URL) {
     logger.debug(
+      // eslint-disable-next-line no-undef
       { endpoint: process.env.AWS_DYNAMODB_ENDPOINT_URL },
       'Using alternate DynamoDB endpoint'
     );
+    // eslint-disable-next-line no-undef
     return process.env.AWS_DYNAMODB_ENDPOINT_URL;
   }
 };
 
 // Create and configure an Amazon DynamoDB client object.
 const ddbClient = new DynamoDBClient({
+  // eslint-disable-next-line no-undef
   region: process.env.AWS_REGION,
   endpoint: getDynamoDBEndpoint(),
   credentials: getCredentials(),
