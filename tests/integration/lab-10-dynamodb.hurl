@@ -68,8 +68,8 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
 [Asserts]
-jsonpath "$.fragments.[0]" == {{fragment1_id}}
-jsonpath "$.fragments.[1]" == {{fragment2_id}}
+jsonpath "$.fragments" includes  {{fragment1_id}}
+jsonpath "$.fragments" includes  {{fragment2_id}}
 
 DELETE {{fragment1_url}}
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
@@ -86,4 +86,4 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
 [Asserts]
-jsonpath "$.fragments.[0]" == {{fragment2_id}}
+jsonpath "$.fragments" includes {{fragment2_id}}
