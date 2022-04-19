@@ -40,7 +40,7 @@ COPY --chown=node:node . /app
 # We run our service on port 8080
 EXPOSE 8080
 # Install curl
-RUN apk --no-cache add curl
+RUN apk  add curl=7.80.0-r0
 #Change root to node user
 USER node
 # Start the container by running our server
