@@ -17,8 +17,8 @@ WORKDIR /app
 # copy dep files and install the production deps
 COPY package*.json  ./
 # Install node dependencies defined in package-lock.json
-RUN npm ci --only=production
-RUN npm rebuild --arch=x64 --platform=linuxmusl  sharp
+RUN npm ci --only=production \
+    && npm rebuild --arch=x64 --platform=linuxmusl  sharp
 
 
 #######################################################################
