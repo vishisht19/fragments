@@ -18,15 +18,19 @@ WORKDIR /app
 COPY package*.json  ./
 # Install node dependencies defined in package-lock.json
 RUN npm ci --only=production
+RUN npm rebuild --arch=x64 --platform=linuxmusl  sharp
+
 
 #######################################################################
 
 # Stage 1: use dependencies to run the app
-FROM node:16.14-alpine@sha256:2c6c59cf4d34d4f937ddfcf33bab9d8bbad8658d1b9de7b97622566a52167f2b AS builder
+FROM node:16.14-alpine@sha256:2c6c59cf4d34d4f937ddfcf33bab9d8bbad8658d1b9de7b97622566a52167f2b AS deploy
+#FROM node:16.14-alpine AS deploy
 WORKDIR /app
 ENV NODE_ENV=production
 # Copy cached dependencies from previous stage so we don't have to download
 COPY --from=dependencies /app /app
+#RUN npm install --arch=x64 --platform=linuxmusl sharp
 # Copy src to /app/src/
 COPY ./src ./src
 # Copy our HTPASSWD file
@@ -35,10 +39,12 @@ COPY ./tests/.htpasswd ./tests/.htpasswd
 COPY --chown=node:node . /app
 # We run our service on port 8080
 EXPOSE 8080
+# Install curl
+RUN apk --no-cache add curl
 #Change root to node user
 USER node
 # Start the container by running our server
-CMD ["npm", "start"]
+CMD ["node", "src/index.js"]
 #Built-in health check. Use docker ps to see if the app is healthy.
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
   CMD curl --fail localhost:8080 || exit 1

@@ -65,4 +65,12 @@ describe('Post', () => {
       .send('data');
     expect(res.statusCode).toBe(415);
   });
+
+  test('Missing body ', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .send('');
+    expect(res.statusCode).toBe(415);
+  });
 });

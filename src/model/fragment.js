@@ -121,9 +121,9 @@ class Fragment {
    */
   async setData(data) {
     // TODO
-    if (!Buffer.isBuffer(data)) {
-      throw new Error('data is not a Buffer');
-    }
+    // if (!Buffer.isBuffer(data)) {
+    //   throw new Error('data is not a Buffer');
+    // }
     this.updated = new Date().toISOString();
     var str = data;
     this.size = Buffer.byteLength(str, 'utf-8');
@@ -174,7 +174,7 @@ class Fragment {
     // TODO
     const { type } = contentType.parse(value);
     // var re = new RegExp('/text*/');
-    if (type.match(`text/*`) || type.match('application/json')) {
+    if (type.match(`text/*`) || type.match('application/json') || type.match(`image/*`)) {
       return true;
     } else {
       return false;

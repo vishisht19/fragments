@@ -1,7 +1,7 @@
 // tests/unit/get-id.test.js
 
 const request = require('supertest');
-
+var md = require('markdown-it')();
 const app = require('../../src/app');
 
 describe('GET /v1/fragments/:id', () => {
@@ -56,7 +56,7 @@ describe('GET /v1/fragments/:id', () => {
     expect(getId.text).toEqual(`This should match`);
   });
 
-  test('authenticated users with type text/html should yield the results converted into that type', async () => {
+  test('authenticated users with type text/html should yield the results in that type', async () => {
     let res = await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
@@ -69,17 +69,97 @@ describe('GET /v1/fragments/:id', () => {
     expect(getId.text).toEqual(`<h1>This should match</h1>`);
   });
 
+  test('authenticated users with type image/png should yield the results converted into that type', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(`C:\\Users\\vish4\\Postman\\files\\example.png`);
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(200);
+  });
+
+  test('authenticated users with any image extension should yield the results converted into that type', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(`C:\\Users\\vish4\\Postman\\files\\example.png`);
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.jpg`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(200);
+  });
+
+  test('authenticated users with any image extension should yield the results converted into that type', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(`C:\\Users\\vish4\\Postman\\files\\example.png`);
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.webp`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(200);
+  });
+
+  test('authenticated users with any image extension should yield the results converted into that type', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(`C:\\Users\\vish4\\Postman\\files\\example.png`);
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.gif`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(200);
+  });
+
+  test('authenticated users with any image extension should yield the results converted into that type', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(`C:\\Users\\vish4\\Postman\\files\\cat.jpg`);
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.png`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(200);
+  });
+
   test('authenticated users with .html extension should yield result converted into text/html type', async () => {
     let res = await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/markdown')
-      .send('This should match');
-
+      .send('**bold**');
+    let data = '**bold**';
+    var result = md.render(data.toString('utf8'));
     const getId = await request(app)
       .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.html`)
       .auth('user1@email.com', 'password1');
-    expect(getId.text).toEqual(`<h1>This should match</h1>`);
+    expect(getId.text).toEqual(result.toString('utf8'));
+  });
+
+  test('authenticated users with .md extension should yield result converted into text/markdown type', async () => {
+    let data = '<h1>This is a fragment</h1>';
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/html')
+      .send(data);
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.md`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.text).toEqual('This is a fragment\n==================');
   });
 
   test('authenticated users with type text/markdown should yield the results converted into that type', async () => {
@@ -91,19 +171,6 @@ describe('GET /v1/fragments/:id', () => {
 
     const getId = await request(app)
       .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}`)
-      .auth('user1@email.com', 'password1');
-    expect(getId.text).toEqual(`# This should match`);
-  });
-
-  test('authenticated users with .html extension should yield result converted into text/html type', async () => {
-    let res = await request(app)
-      .post('/v1/fragments')
-      .auth('user1@email.com', 'password1')
-      .set('Content-Type', 'text/html')
-      .send('This should match');
-
-    const getId = await request(app)
-      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.md`)
       .auth('user1@email.com', 'password1');
     expect(getId.text).toEqual(`# This should match`);
   });

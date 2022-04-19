@@ -40,9 +40,11 @@
     "cors": "^2.8.5",
     "dotenv": "^14.2.0",
     "express": "^4.17.2",
+    "fs": "^0.0.1-security",
     "helmet": "^5.0.1",
     "http-auth": "^4.1.9",
     "http-auth-passport": "^1.0.6",
+    "markdown-it": "^12.3.2",
     "mime": "^3.0.0",
     "nanoid": "^3.2.0",
     "passport": "^0.5.2",
@@ -50,6 +52,8 @@
     "pino": "^7.6.3",
     "pino-http": "^6.5.0",
     "pino-pretty": "^7.3.0",
-    "stoppable": "^1.1.0"
+    "sharp": "^0.30.4",
+    "stoppable": "^1.1.0",
+    "turndown": "^7.1.1"
   }
 }
