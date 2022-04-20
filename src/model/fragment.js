@@ -57,11 +57,7 @@ class Fragment {
     try {
       logger.debug({ ownerId, expand }, 'Fragment.byUser()');
       let x = await listFragments(ownerId, expand);
-      // if (x == [undefined] || x === [undefined] || x == [{}] || x === {}) {
-      //   return [];
-      // } else {
       return x;
-      // }
     } catch (err) {
       return [];
     }

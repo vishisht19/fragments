@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
       if (type.match(`image/*`)) {
         res.status(200).send(data);
       } else {
-        res.status(200).send(`${data}`);
+        res.status(200).send(data.toString('utf8'));
       }
     } else if (ext == '.txt') {
       res.setHeader('Content-Type', 'text/plain');
@@ -41,19 +41,19 @@ module.exports = async (req, res) => {
     } else if (ext == '.jpg') {
       res.setHeader('Content-Type', 'image/jpeg');
       let data = await fragment2.getData(req.user, id);
-      res.status(200).send(sharp(data).toFormat('jpeg'));
+      res.status(200).send(sharp(data).toFormat('jpeg').toBuffer());
     } else if (ext == '.webp') {
       res.setHeader('Content-Type', 'image/webp');
       let data = await fragment2.getData(req.user, id);
-      res.status(200).send(sharp(data).toFormat('webp'));
+      res.status(200).send(sharp(data).toFormat('webp').toBuffer());
     } else if (ext == '.gif') {
       res.setHeader('Content-Type', 'image/gif');
       let data = await fragment2.getData(req.user, id);
-      res.status(200).send(sharp(data).toFormat('gif'));
+      res.status(200).send(sharp(data).toFormat('gif').toBuffer());
     } else if (ext == '.png') {
       res.setHeader('Content-Type', 'image/png');
       let data = await fragment2.getData(req.user, id);
-      res.status(200).send(sharp(data).toFormat('png'));
+      res.status(200).send(sharp(data).toFormat('png').toBuffer());
     } else {
       res.status(415).json(createErrorResponse(415, 'Extension cannot be recognized'));
     }
