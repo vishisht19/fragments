@@ -36,7 +36,7 @@ describe('Post', () => {
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/html')
-      .send('data');
+      .send('<h1>data</h1>');
     expect(res.statusCode).toBe(201);
   });
 
@@ -45,7 +45,7 @@ describe('Post', () => {
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'application/json')
-      .send('data');
+      .send(`{data}`);
     expect(res.statusCode).toBe(201);
   });
 

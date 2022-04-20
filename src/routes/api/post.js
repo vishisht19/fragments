@@ -7,15 +7,8 @@ module.exports = async (req, res) => {
   try {
     const fragment = new Fragment({ ownerId: req.user, type: req.get('Content-Type') });
     await fragment.save();
-    if (req.body == {} || req.body == '') {
-      throw new Error('Data not valid');
-    }
-    //var buffer = FileReader.readAsBinaryString(req.body);
     if (req.get('Content-Type').match(`image/*`)) {
-      // // Reads file in form buffer => <Buffer ff d8 ff db 00 43 00 ...
       const buffer = fs.readFileSync(req.body);
-      //var fr = new FileReader();
-
       await fragment.setData(buffer);
     } else {
       if (req.body == {} || req.body == '') {
