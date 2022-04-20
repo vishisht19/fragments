@@ -66,7 +66,7 @@ class Fragment {
       return [];
     }
   }
-
+  // this.updated = new Date().toISOString();
   /**
    * Gets a fragment for the user by the given id.
    * @param {string} ownerId user's hashed email
@@ -74,10 +74,15 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
-    // TODO
-    this.updated = new Date().toISOString();
-    const frag = await readFragment(ownerId, id); //change
-
+    const req = await readFragment(ownerId, id);
+    const frag = new Fragment({
+      ownerId: req.ownerId,
+      type: req.type,
+      id: req.id,
+      created: req.created,
+      updated: req.updated,
+      size: req.size,
+    });
     if (frag === undefined) {
       throw new Error('Does not exist');
     } else {

@@ -7,7 +7,6 @@ const { Fragment } = require('../../model/fragment');
 var TurndownService = require('turndown');
 var turndownService = new TurndownService();
 const sharp = require('sharp');
-//const fs = require('fs');
 
 module.exports = async (req, res) => {
   try {
@@ -21,12 +20,7 @@ module.exports = async (req, res) => {
     if (ext == '') {
       let data = await fragment2.getData();
       if (type.match(`image/*`)) {
-        // const fs = require("fs");
-        // // Reads file in form buffer => <Buffer ff d8 ff db 00 43 00 ...
-        // const buffer = fs.readFileSync("path-to-image.jpg");
-        // img.src = URL.createObjectURL(await res.blob());
         res.status(200).send(data);
-        //  res.status(200).send(fs.writeFileSync('file1.png', data));
       } else {
         res.status(200).send(`${data}`);
       }
@@ -43,7 +37,6 @@ module.exports = async (req, res) => {
       res.setHeader('Content-Type', 'text/markdown');
       let data = await fragment2.getData(req.user, id);
       var markdown = turndownService.turndown(data.toString('utf8'));
-      //var convert = md.render(data.toString('utf8'));
       res.status(200).send(markdown.toString('utf8'));
     } else if (ext == '.jpg') {
       res.setHeader('Content-Type', 'image/jpeg');
