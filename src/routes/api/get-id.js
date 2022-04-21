@@ -6,7 +6,6 @@ var md = require('markdown-it')();
 const { Fragment } = require('../../model/fragment');
 var TurndownService = require('turndown');
 var turndownService = new TurndownService();
-const sharp = require('sharp');
 
 module.exports = async (req, res) => {
   try {
@@ -16,11 +15,10 @@ module.exports = async (req, res) => {
     let fragment2 = await Fragment.byId(req.user, id);
     const { type } = contentType.parse(fragment2.type);
     res.setHeader('Content-Type', type);
-
     if (ext == '') {
       let data = await fragment2.getData();
       if (type.match(`image/*`)) {
-        res.status(200).send(data);
+        res.status(200).send(data.toString('base64'));
       } else {
         res.status(200).send(data.toString('utf8'));
       }
@@ -39,21 +37,22 @@ module.exports = async (req, res) => {
       var markdown = turndownService.turndown(data.toString('utf8'));
       res.status(200).send(markdown.toString('utf8'));
     } else if (ext == '.jpg') {
+      //For conversion between images we dont need sharp, we just need to assign the content type
       res.setHeader('Content-Type', 'image/jpeg');
       let data = await fragment2.getData(req.user, id);
-      res.status(200).send(sharp(data).toFormat('jpeg').toBuffer());
+      res.status(200).send(data.toString('base64'));
     } else if (ext == '.webp') {
       res.setHeader('Content-Type', 'image/webp');
       let data = await fragment2.getData(req.user, id);
-      res.status(200).send(sharp(data).toFormat('webp').toBuffer());
+      res.status(200).send(data.toString('base64'));
     } else if (ext == '.gif') {
       res.setHeader('Content-Type', 'image/gif');
       let data = await fragment2.getData(req.user, id);
-      res.status(200).send(sharp(data).toFormat('gif').toBuffer());
+      res.status(200).send(data.toString('base64'));
     } else if (ext == '.png') {
       res.setHeader('Content-Type', 'image/png');
       let data = await fragment2.getData(req.user, id);
-      res.status(200).send(sharp(data).toFormat('png').toBuffer());
+      res.status(200).send(data.toString('base64'));
     } else {
       res.status(415).json(createErrorResponse(415, 'Extension cannot be recognized'));
     }
