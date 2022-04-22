@@ -5,7 +5,12 @@ var md = require('markdown-it')();
 const app = require('../../src/app');
 const fs = require('fs');
 
-// eslint-disable-next-line no-undef
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const filePath = `${__dirname}\\test-files\\example.png`;
 
 describe('GET /v1/fragments/:id', () => {
