@@ -10,6 +10,8 @@ module.exports = async (req, res) => {
     let metaData;
     if (queryData == 1) {
       expandStatus = true;
+    } else if (queryData > 1) {
+      throw new Error();
     }
     metaData = await Fragment.byUser(req.user, expandStatus);
     res.status(200).json(
@@ -18,6 +20,6 @@ module.exports = async (req, res) => {
       })
     );
   } catch (err) {
-    res.status(404).json(createErrorResponse(404, 'No such fragment exist'));
+    res.status(400).json(createErrorResponse(400, 'Invalid request'));
   }
 };

@@ -40,4 +40,11 @@ describe('GET /v1/fragments', () => {
       .auth('user1@email.com', 'password2');
     expect(req.statusCode).toBe(401);
   });
+
+  test('authenticated user with invalid query request gets a 400 error code response', async () => {
+    const req = await request(app)
+      .get(`/v1/fragments?expand=2`)
+      .auth('user1@email.com', 'password1');
+    expect(req.statusCode).toBe(400);
+  });
 });

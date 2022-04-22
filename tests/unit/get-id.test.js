@@ -3,6 +3,10 @@
 const request = require('supertest');
 var md = require('markdown-it')();
 const app = require('../../src/app');
+const fs = require('fs');
+//var __dirname =''
+// eslint-disable-next-line no-undef
+const filePath = `${__dirname}\\test-files\\example.png`;
 
 describe('GET /v1/fragments/:id', () => {
   // If the request is missing the Authorization header, it should be forbidden
@@ -108,6 +112,68 @@ describe('GET /v1/fragments/:id', () => {
       .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}`)
       .auth('user1@email.com', 'password1');
     expect(getId.text).toEqual(`# This should match`);
+  });
+
+  test('authenticated users with valid image type should yield the results and status code 200', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(fs.readFileSync(filePath));
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(200);
+  });
+
+  test('authenticated users with ext .jpg should be successful and yield status 200', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(fs.readFileSync(filePath));
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.jpg`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(200);
+  });
+  test('authenticated users with ext .webp should be successful and yield status 200', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(fs.readFileSync(filePath));
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.webp`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(200);
+  });
+  test('authenticated users with ext .gif should be successful and yield status 200', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(fs.readFileSync(filePath));
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.gif`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(200);
+  });
+  test('authenticated users with ext .png should be successful and yield status 200', async () => {
+    let res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(fs.readFileSync(filePath));
+
+    const getId = await request(app)
+      .get(`/v1/fragments/${JSON.parse(res.text).fragment.id}.png`)
+      .auth('user1@email.com', 'password1');
+    expect(getId.statusCode).toBe(200);
   });
 
   test('invalid id should throw 404 err', async () => {

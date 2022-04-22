@@ -5,10 +5,6 @@ module.exports = async (req, res) => {
   try {
     const fragment = new Fragment({ ownerId: req.user, type: req.get('Content-Type') });
     await fragment.save();
-
-    if (req.body == {} || req.body == '') {
-      throw new Error('Data not valid');
-    }
     await fragment.setData(req.body);
 
     res.set('Location', ` http://${req.headers.host}/v1/fragments/${fragment.id}`);
