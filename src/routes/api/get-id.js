@@ -6,6 +6,12 @@ var md = require('markdown-it')();
 const { Fragment } = require('../../model/fragment');
 var TurndownService = require('turndown');
 var turndownService = new TurndownService();
+//var gm = require('gm');
+const sharp = require('sharp');
+
+//const webp = require('webp-converter');
+//var Buffer = require('buffer/').Buffer;
+const pngToJpeg = require('png-to-jpeg');
 
 module.exports = async (req, res) => {
   try {
@@ -39,11 +45,29 @@ module.exports = async (req, res) => {
     } else if (ext == '.jpg') {
       //For conversion between images we dont need sharp, we just need to assign the content type
       res.setHeader('Content-Type', 'image/jpeg');
+      // let data = await fragment2.getData(req.user, id);
+      // var buf = await sharp(data).toFormat('jpeg').toBuffer();
+      // // .then((buf) => res.status(200).send(buf.toString('base64')))
+      // // .catch((err) => console.log(err));
+
       let data = await fragment2.getData(req.user, id);
-      res.status(200).send(data.toString('base64'));
+      // var buf = gm(data).resize(100, 100).toBuffer('JPEG');
+      pngToJpeg({ quality: 90 })(data).then((output) =>
+        res.status(200).send(output.toString('base64'))
+      );
+
+      //  res.status(200).send(buf.toString('base64'));
     } else if (ext == '.webp') {
       res.setHeader('Content-Type', 'image/webp');
       let data = await fragment2.getData(req.user, id);
+      //var dataBase64 = Buffer.from(data).toString('base64');
+      // let rest = await webp.buffer2webpbuffer(data, 'png', '-q 80');
+
+      // rest.then(function (result) {
+      //   // you access the value from the promise here
+      //   res.status(200).send(result.toString('base64'));
+      // });
+
       res.status(200).send(data.toString('base64'));
     } else if (ext == '.gif') {
       res.setHeader('Content-Type', 'image/gif');
@@ -51,8 +75,21 @@ module.exports = async (req, res) => {
       res.status(200).send(data.toString('base64'));
     } else if (ext == '.png') {
       res.setHeader('Content-Type', 'image/png');
-      let data = await fragment2.getData(req.user, id);
-      res.status(200).send(data.toString('base64'));
+      const data = await fragment2.getData(req.user, id);
+
+      sharp(data)
+        .toFormat('png')
+        .toBuffer()
+        .then((data) => {
+          var buff = data.toString('base64');
+          res.status(200).send(buff);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      // var buff = gm(data.toBuffer('PNG'));
+      // res.status(200).send(buff);
     } else {
       res.status(415).json(createErrorResponse(415, 'Extension cannot be recognized'));
     }
