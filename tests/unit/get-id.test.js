@@ -5,13 +5,15 @@ var md = require('markdown-it')();
 const app = require('../../src/app');
 const fs = require('fs');
 
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+// import { fileURLToPath } from 'url';
+// import { dirname } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const filePath = `${__dirname}\\test-files\\example.png`;
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+const path = require('path');
+// eslint-disable-next-line no-undef
+const filePath = path.join(__dirname, 'test-files/example.png');
+//const filePath = `${__dirname}\\test-files\\example.png`;
 
 describe('GET /v1/fragments/:id', () => {
   // If the request is missing the Authorization header, it should be forbidden
