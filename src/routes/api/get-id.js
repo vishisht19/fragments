@@ -6,8 +6,6 @@ var md = require('markdown-it')();
 const { Fragment } = require('../../model/fragment');
 var TurndownService = require('turndown');
 var turndownService = new TurndownService();
-const sharp = require('sharp');
-var Buffer = require('buffer/').Buffer;
 
 module.exports = async (req, res) => {
   try {
