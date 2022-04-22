@@ -4,7 +4,7 @@ const request = require('supertest');
 var md = require('markdown-it')();
 const app = require('../../src/app');
 const fs = require('fs');
-//var __dirname =''
+
 // eslint-disable-next-line no-undef
 const filePath = `${__dirname}\\test-files\\example.png`;
 
