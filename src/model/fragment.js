@@ -3,6 +3,11 @@ const { nanoid } = require('nanoid');
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
 var Buffer = require('buffer/').Buffer;
+var md = require('markdown-it')();
+var TurndownService = require('turndown');
+var turndownService = new TurndownService();
+const sharp = require('sharp');
+const pngToJpeg = require('png-to-jpeg');
 
 const logger = require('../logger');
 // Functions for working with fragment metadata/data using our DB
@@ -174,6 +179,59 @@ class Fragment {
     } else {
       return false;
     }
+  }
+
+  static async getOrConvert(user, ext, id) {
+    let fragment2 = await Fragment.byId(user, id);
+    const { type } = contentType.parse(fragment2.type);
+    var header = type;
+    var result_data;
+    var code = 200;
+    if (ext == '') {
+      let data = await fragment2.getData();
+      if (type.match(`image/*`)) {
+        result_data = data.toString('base64');
+      } else {
+        result_data = data.toString('utf8');
+      }
+    } else if (ext == '.txt') {
+      header = 'text/plain';
+      let data = await fragment2.getData(user, id);
+      result_data = data.toString('utf8');
+    } else if (ext == '.html') {
+      header = 'text/html';
+      let data = await fragment2.getData(user, id);
+      var result = md.render(data.toString('utf8'));
+      result_data = result.toString('utf8');
+    } else if (ext == '.md') {
+      header = 'text/markdown';
+      let data = await fragment2.getData(user, id);
+      var markdown = turndownService.turndown(data.toString('utf8'));
+      result_data = markdown.toString('utf8');
+    } else if (ext == '.jpg') {
+      header = 'image/jpeg';
+      let data = await fragment2.getData(user, id);
+      var output = await pngToJpeg()(data);
+      result_data = output.toString('base64');
+    } else if (ext == '.webp') {
+      header = 'image/webp';
+      let data = await fragment2.getData(user, id);
+      const buffer = await sharp(data).webp().toBuffer();
+      result_data = buffer.toString('base64');
+    } else if (ext == '.gif') {
+      header = 'image/gif';
+      let data = await fragment2.getData(user, id);
+      const buffer = await sharp(data).gif().toBuffer();
+      result_data = buffer.toString('base64');
+    } else if (ext == '.png') {
+      header = 'image/png';
+      const data = await fragment2.getData(user, id);
+      const buffer = await sharp(data).png().toBuffer();
+      result_data = buffer.toString('base64');
+    } else {
+      code = 415;
+    }
+    return [header, result_data, code];
   }
 }
 
