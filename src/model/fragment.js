@@ -187,8 +187,8 @@ class Fragment {
     var header = type;
     var result_data;
     var code = 200;
+    const data = await fragment2.getData(user, id);
     if (ext == '') {
-      let data = await fragment2.getData();
       if (type.match(`image/*`)) {
         result_data = data.toString('base64');
       } else {
@@ -196,36 +196,34 @@ class Fragment {
       }
     } else if (ext == '.txt') {
       header = 'text/plain';
-      let data = await fragment2.getData(user, id);
       result_data = data.toString('utf8');
     } else if (ext == '.html') {
       header = 'text/html';
-      let data = await fragment2.getData(user, id);
       var result = md.render(data.toString('utf8'));
       result_data = result.toString('utf8');
     } else if (ext == '.md') {
       header = 'text/markdown';
-      let data = await fragment2.getData(user, id);
       var markdown = turndownService.turndown(data.toString('utf8'));
       result_data = markdown.toString('utf8');
     } else if (ext == '.jpg') {
       header = 'image/jpeg';
-      let data = await fragment2.getData(user, id);
-      var output = await pngToJpeg()(data);
-      result_data = output.toString('base64');
+      if (type.startsWith(`image/png`)) {
+        var output = await pngToJpeg()(data);
+        result_data = output.toString('base64');
+      } else {
+        const buffer = await sharp(data).jpeg().toBuffer();
+        result_data = buffer.toString('base64');
+      }
     } else if (ext == '.webp') {
       header = 'image/webp';
-      let data = await fragment2.getData(user, id);
       const buffer = await sharp(data).webp().toBuffer();
       result_data = buffer.toString('base64');
     } else if (ext == '.gif') {
       header = 'image/gif';
-      let data = await fragment2.getData(user, id);
       const buffer = await sharp(data).gif().toBuffer();
       result_data = buffer.toString('base64');
     } else if (ext == '.png') {
       header = 'image/png';
-      const data = await fragment2.getData(user, id);
       const buffer = await sharp(data).png().toBuffer();
       result_data = buffer.toString('base64');
     } else {
