@@ -479,7 +479,6 @@ Content-Length: 15
 
 # fragments
 
-Lab1
 
 How to run various scripts
 
@@ -506,3 +505,7 @@ debug :
 1. To run this script just enter command: npm run debug
 2. This command will run the command "cross-env LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/server.js --watch src" saved in the scripts part of package.json.
 3. This script is the similar to dev but it also starts the node inspector on port 9229 enabling us to attach a debugger.
+
+# AWS WEB SERVICES AND CLOUD CONCEPTS USED IN THIS PROJECT
+
+Amazon Cognito, Amazon Elastic Compute Cloud (EC2), Amazon Elastic Container Registry (ECR), Amazon Elastic Beanstalk (EB), Amazon Simple Storage Service (S3) , Amazon, DynamoDB, Amazon CloudWatch, Using the AWS Console, cli, and SDKs, Git and GitHub Fundamentals, Building Microservices with node.js, Infrastructure as a Service (IaaS) and EC2 Unit and Integration Testing, Continuous Integration (CI) and Continuous Deployment (CD) with GitHub Actions, Working with Docker and Containers, Containerizing node.js apps and Authoring Dockerfiles, Building, Tagging, and Pushing Images to Container Registries (e.g., Docker Hub, ECR), Docker-compose and multi-container development and testing environments, Using Containers in CI/CD Pipelines, Running Containers on AWS, Continuous Deployment (CD) to AWS, Using AWS Managed Services for Serverless data back-ends, Storing and working with data blobs in S3, Storing and working with unstructured data in DynamoDB.
